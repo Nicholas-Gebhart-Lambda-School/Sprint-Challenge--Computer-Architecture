@@ -185,6 +185,9 @@ class CPU:
         Sets the program counter to the address stored in a given register.
         """
 
+        next_register = self.ram_read(self.counter + 1)
+        self.counter = self.register[next_register]
+
     def _dispatch_jeq(self):
         """
         If the E flag is truthy, jump to the given register,
