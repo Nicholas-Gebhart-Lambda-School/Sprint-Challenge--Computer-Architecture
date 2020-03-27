@@ -185,6 +185,33 @@ class CPU:
             else:
                 self.flags[E] = 0
 
+        elif operation == "AND":
+            self.register[register_a] = self.register[register_a] \
+                & self.register[register_b]
+
+        elif operation == "BOR":
+            self.register[register_a] = self.register[register_a] \
+                | self.register[register_b]
+
+        elif operation == "XOR":
+            self.register[register_a] = self.register[register_a] \
+                ^ self.register[register_b]
+
+        elif operation == "NOT":
+            self.register[register_a] = ~ self.register[register_a]
+
+        elif operation == "SHL":
+            self.register[register_a] = self.register[register_a] \
+                << self.register[register_b]
+
+        elif operation == "SHR":
+            self.register[register_a] = self.register[register_a] \
+                >> self.register[register_b]
+
+        elif operation == "MOD":
+            self.register[register_a] = self.register[register_a] \
+                % self.register[register_b]
+
     # ===============================================================
     # Dispatch table ================================================
     # ===============================================================
