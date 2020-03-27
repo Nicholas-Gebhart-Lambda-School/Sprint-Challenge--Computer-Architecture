@@ -92,6 +92,13 @@ class CPU:
             LDI: self._dispatch_ldi,
             HLT: self._dispatch_hlt,
             # Stretch
+            AND: self._dispatch_and,
+            BOR: self._dispatch_bor,
+            NOT: self._dispatch_not,
+            SHL: self._dispatch_shl,
+            SHR: self._dispatch_shr,
+            MOD: self._dispatch_mod,
+            XOR: self._dispatch_xor
         }
 
     # ===============================================================
@@ -254,6 +261,65 @@ class CPU:
 
         self._alu('CMP', register_a, register_b)
         self.counter += 3
+
+    # ===============================================================
+    # Stretch methods ===============================================
+    # ===============================================================
+
+    def _dispatch_and(self):
+        """
+        Performs a logical AND operation on each MDR
+
+        1 x 1 = 1
+        1 x 0 = 0
+        0 x 0 = 0
+        """
+
+    def _dispatch_bor(self):
+        """
+        Performs a logical inclusive OR operation on each MDR
+
+        00000101 | 00000011 = 00000111
+        """
+
+    def _dispatch_not(self):
+        """
+        Performs a logical negation on each bit for one MDR
+
+        ~ 00000111 = 00001000
+        """
+
+    def _dispatch_shl(self):
+        """
+        Performs an arithmetic left shift
+        Zeros are shifted in on the right
+
+        00010111 = 00101110
+        """
+
+    def _dispatch_shr(self):
+        """
+        Performs an arithmetic right shift
+        The sign bit is shifted onto the left
+
+        10010111 = 11001011
+        """
+
+    def _dispatch_mod(self):
+        """
+        Performs a module operation between two MDR inputs
+        Result is the remainder after division
+
+        00011010 % 11001010 = 0011010
+        """
+
+    def _dispatch_xor(self):
+        """
+        Takes two bit patterns of equal length and performs the
+        logical exclusive OR operation on each corresponding bit
+
+        00000101 ^ 00000011 = 00000110
+        """
 
 
 if __name__ == "__main__":
