@@ -194,11 +194,23 @@ class CPU:
         otherwise continue program execution at the next MAR
         """
 
+        if self.flags[E] == 1:
+            next_register = self.ram_read(self.counter + 1)
+            self.counter = self.register[next_register]
+        else:
+            self.counter += 2
+
     def _dispatch_jne(self):
         """
         If the E flag is falsy, jump to the given register,
         otherwise continue progrm execution at the next MAR
         """
+
+        if self.flags[E] == 0:
+            next_register = self.ram_read(self.counter + 1)
+            self.counter = self.register[next_register]
+        else:
+            self.counter += 2
 
     def _dispatch_ldi(self):
         """
