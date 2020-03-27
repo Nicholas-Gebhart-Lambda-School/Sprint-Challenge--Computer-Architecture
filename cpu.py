@@ -15,6 +15,7 @@ import sys                          # Receives file name from sys argv
 # ===============================================================
 
 EXIT_FAILURE = "\nERROR: PROCESS RETURNED NON-ZERO EXIT CODE"
+EXIT_SUCCESS = "SUCCESS\n"
 FILE_NAME = f"\nUNKNOWN FILE: cannot find file with name {sys.argv[1]}"
 NOT_FOUND = f"\nOPERATION UNKNOWN: Opcode not found, "
 USAGE = f"\nUSAGE: python {sys.argv[0]} [file-name].ls8"
@@ -156,6 +157,9 @@ class CPU:
         Pseudo-instruction to print current MDR
         """
 
+        print(self.register[self.ram_read(self.counter + 1)])
+        self.counter += 2
+
     def _dispatch_jmp(self):
         """
         Jumps to the address stored at a given register.
@@ -179,10 +183,18 @@ class CPU:
         Sets the value of a register to an integer
         """
 
+        self.register[self.ram_read(self.counter + 1)]\
+            = self.ram_read(self.counter + 2)
+        self.counter += 3
+
     def _dispatch_hlt(self):
         """
         Halt the CPU execution and exit with status code 0
         """
+
+        self.counter = 0
+        print(EXIT_SUCCESS)
+        sys.exit(0)
 
     def _dispatch_cmp(self):
         """
