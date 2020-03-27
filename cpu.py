@@ -17,6 +17,7 @@ import sys                          # Receives file name from sys argv
 EXIT_FAILURE = "\nERROR: PROCESS RETURNED NON-ZERO EXIT CODE"
 FILE_NAME = f"\nUNKNOWN FILE: cannot find file with name {sys.argv[1]}"
 NOT_FOUND = f"\nOPERATION UNKNOWN: Opcode not found, "
+USAGE = f"\nUSAGE: python {sys.argv[0]} [file-name].ls8"
 
 # ===============================================================
 # Instructions ==================================================
@@ -137,4 +138,9 @@ class CPU:
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
-        pass
+        FILE = sys.argv[1]          # Receive file from arguments
+        CPU = CPU()                 # Instantiate the LS-8
+        CPU.run(FILE)               # Invoke main with given file
+    else:
+        print(EXIT_FAILURE, USAGE)  # Prints usage error message
+        sys.exit(1)                 # Non-zero exit code
