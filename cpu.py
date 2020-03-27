@@ -170,7 +170,7 @@ class CPU:
     # Private methods ===============================================
     # ===============================================================
 
-    def _alu(self, operation, register_a, register_b):
+    def _alu(self, operation, register_a, register_b=None):
         """
         Arithmetic Logic Unit
 
@@ -275,6 +275,11 @@ class CPU:
         0 x 0 = 0
         """
 
+        register_a = self.ram_read(self.counter + 1)
+        register_b = self.ram_read(self.counter + 2)
+        self._alu('AND', register_a, register_b)
+        self.counter += 3
+
     def _dispatch_bor(self):
         """
         Performs a logical inclusive OR operation on each MDR
@@ -282,12 +287,21 @@ class CPU:
         00000101 | 00000011 = 00000111
         """
 
+        register_a = self.ram_read(self.counter + 1)
+        register_b = self.ram_read(self.counter + 2)
+        self._alu('BOR', register_a, register_b)
+        self.counter += 3
+
     def _dispatch_not(self):
         """
         Performs a logical negation on each bit for one MDR
 
         ~ 00000111 = 00001000
         """
+
+        register_a = self.ram_read(self.counter + 1)
+        self._alu('NOT', register_a)
+        self.counter += 2
 
     def _dispatch_shl(self):
         """
@@ -297,6 +311,11 @@ class CPU:
         00010111 = 00101110
         """
 
+        register_a = self.ram_read(self.counter + 1)
+        register_b = self.ram_read(self.counter + 2)
+        self._alu('SHL', register_a, register_b)
+        self.counter += 3
+
     def _dispatch_shr(self):
         """
         Performs an arithmetic right shift
@@ -304,6 +323,11 @@ class CPU:
 
         10010111 = 11001011
         """
+
+        register_a = self.ram_read(self.counter + 1)
+        register_b = self.ram_read(self.counter + 2)
+        self._alu('SHR', register_a, register_b)
+        self.counter += 3
 
     def _dispatch_mod(self):
         """
@@ -313,6 +337,11 @@ class CPU:
         00011010 % 11001010 = 0011010
         """
 
+        register_a = self.ram_read(self.counter + 1)
+        register_b = self.ram_read(self.counter + 2)
+        self._alu('MOD', register_a, register_b)
+        self.counter += 3
+
     def _dispatch_xor(self):
         """
         Takes two bit patterns of equal length and performs the
@@ -320,6 +349,11 @@ class CPU:
 
         00000101 ^ 00000011 = 00000110
         """
+
+        register_a = self.ram_read(self.counter + 1)
+        register_b = self.ram_read(self.counter + 2)
+        self._alu('XOR', register_a, register_b)
+        self.counter += 3
 
 
 if __name__ == "__main__":
