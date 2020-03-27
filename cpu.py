@@ -50,6 +50,16 @@ JNE = 0b01010110                    # Jumps to MAR if E flag is falsy
 HLT = 0b00000001                    # Halt program execution
 
 
+# Stretch
+AND = None                          # Binary bitwise AND operator
+BOR = None                          # Binary bitwise OR operatior
+NOT = None                          # Unary bitwise NOT operator
+SHL = None                          # Binary bitshift left operator
+SHR = None                          # Binary bitshift right operator
+MOD = None                          # Binary modulus operator
+XOR = None                          # Binary bitwise XOR operator
+
+
 # ===============================================================
 # CPU Class =====================================================
 # ===============================================================
