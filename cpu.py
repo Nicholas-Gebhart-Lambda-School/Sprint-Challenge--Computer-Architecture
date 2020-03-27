@@ -11,6 +11,14 @@ import sys                          # Receives file name from sys argv
 
 
 # ===============================================================
+# Constants =====================================================
+# ===============================================================
+
+E = -1                              # Equality flag
+G = None                            # Greater than flag
+L = None                            # Less than flag
+
+# ===============================================================
 # Errors ========================================================
 # ===============================================================
 
@@ -152,6 +160,13 @@ class CPU:
         bitwise logical operations, and bitshift operations.
         """
 
+        if operation == 'CMP':
+            if self.register[register_a] \
+                    == self.register[register_b]:
+                self.flags[E] = 1
+            else:
+                self.flags[E] = 0
+
     # ===============================================================
     # Dispatch table ================================================
     # ===============================================================
@@ -208,6 +223,11 @@ class CPU:
         If registerA is greater than registerB, set G to 1, otherwise 0
         If registerA is equal to registerB, set E to 1, otherwise 0
         """
+        register_a = self.ram_read(self.counter + 1)
+        register_b = self.ram_read(self.counter + 2)
+
+        self._alu('CMP', register_a, register_b)
+        self.counter += 3
 
 
 if __name__ == "__main__":
