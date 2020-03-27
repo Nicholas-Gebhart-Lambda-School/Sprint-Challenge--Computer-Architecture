@@ -9,6 +9,15 @@ up to 255. Theoretically, we cna support up to 256 instructions.
 
 import sys                          # Receives file name from sys argv
 
+
+# ===============================================================
+# Errors ========================================================
+# ===============================================================
+
+EXIT_FAILURE = "\nERROR: PROCESS RETURNED NON-ZERO EXIT CODE"
+FILE_NAME = f"\nUNKNOWN FILE: cannot find file with name {sys.argv[1]}"
+NOT_FOUND = f"\nOPERATION UNKNOWN: Opcode not found, "
+
 # ===============================================================
 # Instructions ==================================================
 # ===============================================================
@@ -91,6 +100,22 @@ class CPU:
         Raises an exception if sys.argv[1] is invalid.
         """
 
+        try:
+            address = 0
+            with open(file) as program:
+                for line in program:
+                    value = line.split('#')[0].strip()
+
+                    if value != '':
+                        instruction = int(value, 2)
+                        self.ram_write(address, instruction)
+                        address += 1
+                    else:
+                        continue
+        except FileNotFoundError:
+            print(EXIT_FAILURE, FILE_NAME)
+            sys.exit(2)
+
     def run(self, file):
         """
         Acts as main for the CPU class
@@ -98,6 +123,16 @@ class CPU:
 
         Initializes a REPL and dispatches actions from the branchtable
         """
+
+        self.load(file)
+
+        while True:
+            operation = self.ram_read(self.counter)
+
+            if operation in self.dispatch:
+                self.dispatch[operation]()
+            else:
+                raise Exception(NOT_FOUND, operation)
 
 
 if __name__ == "__main__":
