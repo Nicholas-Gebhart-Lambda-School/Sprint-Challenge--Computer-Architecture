@@ -135,6 +135,64 @@ class CPU:
             else:
                 raise Exception(NOT_FOUND, operation)
 
+    # ===============================================================
+    # Private methods ===============================================
+    # ===============================================================
+
+    def _alu(self, operation, register_a, register_b):
+        """
+        Arithmetic Logic Unit
+
+        Procedures that handle arithmetic operations,
+        bitwise logical operations, and bitshift operations.
+        """
+
+    # ===============================================================
+    # Dispatch table ================================================
+    # ===============================================================
+
+    def _dispatch_prn(self):
+        """
+        Pseudo-instruction to print current MDR
+        """
+
+    def _dispatch_jmp(self):
+        """
+        Jumps to the address stored at a given register.
+        Sets the program counter to the address stored in a given register.
+        """
+
+    def _dispatch_jeq(self):
+        """
+        If the E flag is truthy, jump to the given register,
+        otherwise continue program execution at the next MAR
+        """
+
+    def _dispatch_jne(self):
+        """
+        If the E flag is falsy, jump to the given register,
+        otherwise continue progrm execution at the next MAR
+        """
+
+    def _dispatch_ldi(self):
+        """
+        Sets the value of a register to an integer
+        """
+
+    def _dispatch_hlt(self):
+        """
+        Halt the CPU execution and exit with status code 0
+        """
+
+    def _dispatch_cmp(self):
+        """
+        Compares the values at to registers:
+
+        If registerA is less than registerB, set L to 1, otherwise 0
+        If registerA is greater than registerB, set G to 1, otherwise 0
+        If registerA is equal to registerB, set E to 1, otherwise 0
+        """
+
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
