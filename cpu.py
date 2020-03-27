@@ -51,13 +51,13 @@ HLT = 0b00000001                    # Halt program execution
 
 
 # Stretch
-AND = None                          # Binary bitwise AND operator
-BOR = None                          # Binary bitwise OR operatior
-NOT = None                          # Unary bitwise NOT operator
-SHL = None                          # Binary bitshift left operator
-SHR = None                          # Binary bitshift right operator
-MOD = None                          # Binary modulus operator
-XOR = None                          # Binary bitwise XOR operator
+AND = 0b10100001                    # Binary bitwise AND operator
+BOR = 0b10100101                    # Binary bitwise OR operatior
+NOT = 0b01101110                    # Unary bitwise NOT operator
+SHL = 0b10101011                    # Binary bitshift left operator
+SHR = 0b10101100                    # Binary bitshift right operator
+MOD = 0b10100110                    # Binary modulus operator
+XOR = 0b10101001                    # Binary bitwise XOR operator
 
 
 # ===============================================================
@@ -91,6 +91,7 @@ class CPU:
             JNE: self._dispatch_jne,
             LDI: self._dispatch_ldi,
             HLT: self._dispatch_hlt,
+            # Stretch
         }
 
     # ===============================================================
