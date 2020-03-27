@@ -31,6 +31,75 @@ JNE = 0b01010110                    # Jumps to MAR if E flag is falsy
 HLT = 0b00000001                    # Halt program execution
 
 
+# ===============================================================
+# CPU Class =====================================================
+# ===============================================================
+
+
+class CPU:
+    """
+    Initialize a CPU class which matches the LS-8 spec.
+    """
+
+    def __init__(self):
+        """
+        Register: an 8-bit register holding values between 0 - 255.
+        RAM: 256 bytes of memory to store our program.
+        Flags: An 8-bit register holding the flag status: 00000LGE.
+        Counter: Program counter, address of the current instruction.
+        Dispatch: A branch table to efficiently execute instructions.
+        """
+
+        self.register = [0] * 8     # 8-bit instruction register
+        self.ram = [0] * 256        # 256 bytes of memory
+        self.flags = [0] * 8        # 8-bit flag register
+        self.counter = 0            # Program counter
+        self.dispatch = {           # Branch table
+            'value': 'method',
+            'value1': 'method1',
+            'value2': 'method2',
+        }
+
+    # ===============================================================
+    # Public methods ================================================
+    # ===============================================================
+
+    def ram_write(self, mar, mdr):
+        """
+        MDR: Memory Data Register, holds the value in a register
+        MAR: Memory Address Register, holds the memory address location
+
+        Procedure to write the MDR at the given MAR
+        """
+        self.ram[mar] = mdr
+
+    def ram_read(self, mar):
+        """
+        MAR: Memory Address Register, holds the memory address location
+
+        Function to read the value at the MAR
+        """
+        return self.ram[mar]
+
+    def load(self, file):
+        """
+        Procedure to load a program into memory.
+
+        Splits lines at the '#' delimiter and strips whitespace
+        to pass instructions to ram_write.
+
+        Raises an exception if sys.argv[1] is invalid.
+        """
+
+    def run(self, file):
+        """
+        Acts as main for the CPU class
+        Receives a program from sys.argv[1] and passes it to self.load
+
+        Initializes a REPL and dispatches actions from the branchtable
+        """
+
+
 if __name__ == "__main__":
     if len(sys.argv) == 2:
         pass
