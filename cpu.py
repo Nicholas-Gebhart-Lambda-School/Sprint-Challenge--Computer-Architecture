@@ -66,9 +66,13 @@ class CPU:
         self.flags = [0] * 8        # 8-bit flag register
         self.counter = 0            # Program counter
         self.dispatch = {           # Branch table
-            'value': 'method',
-            'value1': 'method1',
-            'value2': 'method2',
+            PRN: self._dispatch_prn,
+            JMP: self._dispatch_jmp,
+            CMP: self._dispatch_cmp,
+            JEQ: self._dispatch_jeq,
+            JNE: self._dispatch_jne,
+            LDI: self._dispatch_ldi,
+            HLT: self._dispatch_hlt,
         }
 
     # ===============================================================
